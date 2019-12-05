@@ -1,0 +1,11 @@
+infos servidor:
+iniciar servidor node/src/server.js
+
+
+
+comentários úteis:
+
+
+comandos:
+// informo que estarei utilizando apenas em amb desenvolvimento
+yarn add nodemon -D
