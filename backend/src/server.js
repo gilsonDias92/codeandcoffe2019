@@ -1,10 +1,9 @@
 const express = require('express');
 // express microframework, nos ajuda com rotas e outras funcionalidades..
+const mongoose = require('mongoose');
 
 const routes = require('./routes');
 // ./pasta indica que é um diretório e nao um módulo (caminho relativo)
-const mongoose = require('mongoose');
-// trabalhar com mongo db
 
 const app = express();
 
@@ -20,7 +19,7 @@ mongoose.connect('mongodb+srv://desenvolvedor:desenvolvedor@codeandcoffe-trrr3.m
 // req.params -> acessar route params (para edit, delete)
 // req.body -> acessar corpo da requisicao (create, edit) {req.body}
 
-app.use(express.json);
+app.use(express.json());
 app.use(routes);
 
 app.listen(3333);
