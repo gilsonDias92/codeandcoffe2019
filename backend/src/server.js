@@ -2,6 +2,8 @@ const express = require('express');
 // express microframework, nos ajuda com rotas e outras funcionalidades..
 const mongoose = require('mongoose');
 const cors = require('cors');
+const path = require('path');
+
 
 const routes = require('./routes');
 // ./pasta indica que é um diretório e nao um módulo (caminho relativo)
@@ -22,6 +24,7 @@ mongoose.connect('mongodb+srv://desenvolvedor:desenvolvedor@codeandcoffe-trrr3.m
 
 app.use(cors());
 app.use(express.json());
+app.use('/files', express.static(path.resolve(__dirname, '..', 'uploads')));
 app.use(routes);
 
 app.listen(3333);

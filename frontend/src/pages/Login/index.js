@@ -15,7 +15,7 @@ export default function Login({ history }) {
     // armazenar id
     localStorage.setItem("user", _id);
 
-    history.push('/dashboard')
+    history.push('/dashboard');
 
   }
   return (
