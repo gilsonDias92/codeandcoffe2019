@@ -70,7 +70,7 @@ export default function New({ history }) {
         id="price"
         type="text"
         value={price}
-        placeholder="Quais tecnologias utilizam?"
+        placeholder="Qual o valor da diária?"
         onChange={event => setPrice(event.target.value)}
       />
       <button className="btn" type="submit">

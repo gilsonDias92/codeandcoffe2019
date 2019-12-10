@@ -20,6 +20,7 @@ export default function Dashboard() {
   }, []);
   return (
     <>
+<h2>SPOTS CADASTRADOS</h2>
       <ul className="spot-list">
         {spots.map(spot => (
           <li key={spot._id}>
