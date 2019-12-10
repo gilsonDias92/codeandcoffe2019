@@ -1,24 +1,51 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   KeyboardAvoidingView,
-  Platform,
+  Platform, //identifica se é android ou ios para algumas configs personalizadas
   Text,
   TextInput,
   Image,
   StyleSheet,
-  TouchableOpacity
+  TouchableOpacity,
+  AsyncStorage
 } from "react-native";
 
+import api from "../services/api";
 import logo from "../assets/logo.png";
 
-export default function Login() {
+export default function Login({ navigation }) {
+  const [email, setEmail] = useState("");
+  const [techs, setTechs] = useState("");
+
+  
+  useEffect(() => {
+    AsyncStorage.getItem("user").then(user => {
+      if (user) {
+        navigation.navigate("List");
+      }
+    });
+  }, []);
+
+  async function handleSubmit() {
+    // email, tecnologias
+    const response = await api.post("/sessions", {
+      email
+    });
+
+    const { _id } = response.data;
+
+    await AsyncStorage.setItem("user", _id);
+    await AsyncStorage.setItem("techs", techs);
+
+    navigation.navigate("List");
+  }
   return (
     // configuracoes para teclado não subir até o botao
     // android é padrao, será habilitado para iOS
     <KeyboardAvoidingView
       style={styles.container}
-      enabled={Platform.OS === "ios"}
+      // enabled={Platform.OS === "ios"}
       behavior="padding"
     >
       <Image source={logo} />
@@ -32,6 +59,8 @@ export default function Login() {
           keyboardType="email-address"
           autoCapitalize="none"
           autoCorrect={false}
+          value={email}
+          onChangeText={text => setEmail(text)}
         />
         <Text style={styles.label}> TECNOLOGIAS *</Text>
         <TextInput
@@ -40,9 +69,11 @@ export default function Login() {
           placeholderTextColor="#999"
           autoCapitalize="words"
           autoCorrect={false}
+          value={techs}
+          onChangeText={text => setTechs(text)}
         />
 
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity onPress={handleSubmit} style={styles.button}>
           <Text style={styles.textButton}>Encontrar Spots</Text>
         </TouchableOpacity>
       </View>
@@ -51,7 +82,6 @@ export default function Login() {
 }
 
 const styles = StyleSheet.create({
-
   container: {
     flex: 1,
     justifyContent: "center",
@@ -93,5 +123,4 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 16
   }
-
 });
