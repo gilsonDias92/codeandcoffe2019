@@ -18,7 +18,6 @@ export default function Login({ navigation }) {
   const [email, setEmail] = useState("");
   const [techs, setTechs] = useState("");
 
-  
   useEffect(() => {
     AsyncStorage.getItem("user").then(user => {
       if (user) {
@@ -31,7 +30,7 @@ export default function Login({ navigation }) {
     // email, tecnologias
     const response = await api.post("/sessions", {
       email
-    });
+    })
 
     const { _id } = response.data;
 
@@ -99,6 +98,7 @@ const styles = StyleSheet.create({
     color: "#444",
     marginBottom: 8
   },
+
   input: {
     borderWidth: 1,
     borderColor: "#DDD",
