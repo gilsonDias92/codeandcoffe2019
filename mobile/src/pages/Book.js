@@ -28,7 +28,7 @@ export default function Book({ navigation }) {
       }
     );
 
-    Alert.alert("Solicitação de reserva enviada.");
+    Alert.alert("Solicitação de reserva enviada!");
     navigation.navigate("List");
   }
 
