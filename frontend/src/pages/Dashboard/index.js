@@ -11,9 +11,13 @@ export default function Dashboard() {
   const [requests, setRequests] = useState([]);
 
   const user_id = localStorage.getItem("user");
-  const socket = useMemo(() => socketio("http://localhost:3333", {
-    query: { user_id }
-  }), [user_id]);
+  const socket = useMemo(
+    () =>
+      socketio("http://localhost:3333", {
+        query: { user_id }
+      }),
+    [user_id]
+  );
 
   // dispara a funcao assim q o elemento é exibido em tela
   useEffect(() => {
@@ -33,6 +37,15 @@ export default function Dashboard() {
     }
     loadSpots();
   }, []);
+
+  function handleAccept(id) {
+
+  }
+
+  function handleReject(id) {
+    
+  }
+
   return (
     <>
       <ul className="notifications">
@@ -43,8 +56,23 @@ export default function Dashboard() {
               em <strong>{request.spot.company}</strong> para a data:
               <strong>{request.date}</strong>
             </p>
-            <button className="accept">ACEITAR</button>
-            <button className="reject">RECUSAR</button>
+
+            <button
+              className="accept"
+              onClick={() => {
+                handleAccept(request._id);
+              }}
+            >
+              ACEITAR
+            </button>
+            <button
+              className="reject"
+              onClick={() => {
+                handleReject(request._id);
+              }}
+            >
+              RECUSAR
+            </button>
           </li>
         ))}
       </ul>
