@@ -38,12 +38,16 @@ export default function Dashboard() {
     loadSpots();
   }, []);
 
-  function handleAccept(id) {
+  async function handleAccept(id) {
+    await api.post(`/bookings/${id}/approvals`);
 
+    setRequests(requests.filter(request => request._id !== id));
   }
 
-  function handleReject(id) {
-    
+  async function handleReject(id) {
+    await api.post(`/bookings/${id}/rejections`);
+
+    setRequests(requests.filter(request => request._id !== id));
   }
 
   return (
@@ -59,17 +63,13 @@ export default function Dashboard() {
 
             <button
               className="accept"
-              onClick={() => {
-                handleAccept(request._id);
-              }}
+              onClick={() => handleAccept(request._id)}
             >
               ACEITAR
             </button>
             <button
               className="reject"
-              onClick={() => {
-                handleReject(request._id);
-              }}
+              onClick={() => handleReject(request._id)}
             >
               RECUSAR
             </button>
